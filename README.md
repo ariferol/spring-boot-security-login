@@ -76,12 +76,14 @@ mvn spring-boot:run
 ```
 
 ## Run & Check
-```
+
 Let’s check H2 database with url: http://localhost:8084/h2-ui:
-And JDBC url: jdbc:h2:file:./testdb
+And JDBC url: 
+```
+jdbc:h2:file:./testdb
+```
 un: sa
 
-```
 Details :
 ```
 https://www.bezkoder.com/spring-boot-security-login-jwt/
@@ -93,10 +95,14 @@ INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
 INSERT INTO roles(name) VALUES('ROLE_ADMIN');
 ```
 ##Sample user service consume:
-```
+
 usercreate:
-url : http://localhost:8084/api/auth/signup
+url : 
+```
+http://localhost:8084/api/auth/signup
+```
 body:
+```
 {
     "username": "arif",
     "email": "arif@arif.com",
@@ -107,10 +113,13 @@ body:
         "admin"
     ]
 }
-
-login user:
-url : http://localhost:8084/api/auth/signin
+```
+login user url : 
+```
+http://localhost:8084/api/auth/signin
+```
 body:
+```
 {
     "username": "arif",
     "password": "arif123"
