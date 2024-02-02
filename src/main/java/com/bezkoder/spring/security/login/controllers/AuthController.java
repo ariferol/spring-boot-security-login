@@ -55,6 +55,16 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
+  @PostMapping("/addinitroles")
+  public ResponseEntity<?> addinitroles() {
+
+    roleRepository.save(new Role(ERole.ROLE_MODERATOR));
+    roleRepository.save(new Role(ERole.ROLE_USER));
+    roleRepository.save(new Role(ERole.ROLE_ADMIN));
+
+    return ResponseEntity.ok(new MessageResponse("Baslangic rolleri basariyla eklendi."));
+  }
+
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 

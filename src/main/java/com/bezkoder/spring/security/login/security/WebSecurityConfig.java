@@ -22,6 +22,8 @@ import com.bezkoder.spring.security.login.security.jwt.AuthEntryPointJwt;
 import com.bezkoder.spring.security.login.security.jwt.AuthTokenFilter;
 import com.bezkoder.spring.security.login.security.services.UserDetailsServiceImpl;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 @Configuration
 //@EnableWebSecurity
 @EnableMethodSecurity
@@ -93,12 +95,19 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
+    http.csrf(csrf -> csrf
+                    .ignoringRequestMatchers(toH2Console())
+                    .ignoringRequestMatchers("/test/**")
+                    .ignoringRequestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources")
+                    .disable())
         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> 
           auth.requestMatchers("/api/auth/**").permitAll()
               .requestMatchers("/api/test/**").permitAll()
+              .requestMatchers(toH2Console()).permitAll()
+              .requestMatchers("/api/something/**").permitAll()
+              .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**", "/swagger-resources").permitAll()
               .anyRequest().authenticated()
         );
     

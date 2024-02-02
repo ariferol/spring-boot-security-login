@@ -75,11 +75,50 @@ bezkoder.app.jwtExpirationMs= 86400000
 mvn spring-boot:run
 ```
 
+## Run & Check
+```
+Let’s check H2 database with url: http://localhost:8084/h2-ui:
+And JDBC url: jdbc:h2:file:./testdb
+un: sa
+
+```
+Details :
+```
+https://www.bezkoder.com/spring-boot-security-login-jwt/
+```
 ## Run following SQL insert statements
 ```
 INSERT INTO roles(name) VALUES('ROLE_USER');
 INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
 INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+```
+##Sample user service consume:
+```
+usercreate:
+url : http://localhost:8084/api/auth/signup
+body:
+{
+    "username": "arif",
+    "email": "arif@arif.com",
+    "password": "arif123",
+    "role": [
+        "mod",
+        "user",
+        "admin"
+    ]
+}
+
+login user:
+url : http://localhost:8084/api/auth/signin
+body:
+{
+    "username": "arif",
+    "password": "arif123"
+}
+```
+## Swagger url link:
+```
+http://localhost:8084/swagger-ui/index.html
 ```
 
 ## Refresh Token
