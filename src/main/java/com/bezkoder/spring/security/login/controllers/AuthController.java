@@ -65,7 +65,7 @@ public class AuthController {
     return ResponseEntity.ok(new MessageResponse("Baslangic rolleri basariyla eklendi."));
   }
 
-  @PostMapping("/signin")
+  @PostMapping("/login")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     Authentication authentication = authenticationManager
